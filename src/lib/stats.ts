@@ -5,8 +5,8 @@ const MS_PER_DAY = 24 * 60 * 60 * 1000;
 export interface Stats {
   /** ISO date the journey began. */
   journeyStartISO: string;
-  /** Number of sober spells that have already ended in a relapse. */
-  pastSpells: number;
+  /** Number of relapses so far (equivalently, spells that have already ended). */
+  relapseCount: number;
   /** Longest spell in whole days, including the current ongoing one. */
   longestSpellDays: number;
   /** True when the current ongoing spell is the longest so far. */
@@ -48,7 +48,7 @@ export function computeStats(now: number = Date.now()): Stats {
 
   return {
     journeyStartISO,
-    pastSpells: completed.length,
+    relapseCount: completed.length,
     longestSpellDays: Math.floor(longestMs / MS_PER_DAY),
     longestIsCurrent: spells.length > 0 && currentMs === longestMs,
     averageSpellDays:

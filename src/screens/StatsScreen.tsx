@@ -32,7 +32,7 @@ export default function StatsScreen({ onBack }: Props) {
         </div>
 
         <div className="stat-row">
-          <span className="stat-label">Longest sober spell</span>
+          <span className="stat-label">Longest time before relapse</span>
           <span className="stat-value">{dayLabel(stats.longestSpellDays)}</span>
           {stats.longestIsCurrent && stats.longestSpellDays > 0 && (
             <span className="stat-caption">That's your current streak.</span>
@@ -40,17 +40,17 @@ export default function StatsScreen({ onBack }: Props) {
         </div>
 
         <div className="stat-row">
-          <span className="stat-label">Average sober spell</span>
+          <span className="stat-label">Average time before relapse</span>
           <span className="stat-value">
             {stats.averageSpellDays === null
               ? "—"
               : dayLabel(stats.averageSpellDays)}
           </span>
           <span className="stat-caption">
-            {stats.pastSpells === 0
-              ? "Nothing to average yet."
-              : `Across your ${stats.pastSpells} past ${
-                  stats.pastSpells === 1 ? "spell" : "spells"
+            {stats.relapseCount === 0
+              ? "No relapses yet."
+              : `Based on ${stats.relapseCount} ${
+                  stats.relapseCount === 1 ? "relapse" : "relapses"
                 }.`}
           </span>
         </div>
