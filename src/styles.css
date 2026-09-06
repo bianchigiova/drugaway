@@ -1,0 +1,288 @@
+:root {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --surface-2: #334155;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --danger: #f43f5e;
+  --radius: 16px;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  position: relative;
+  min-height: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: env(safe-area-inset-top) 20px calc(env(safe-area-inset-bottom) + 20px);
+  display: flex;
+  flex-direction: column;
+}
+
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px;
+}
+
+/* ---------- Buttons ---------- */
+
+.button {
+  appearance: none;
+  border: none;
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface-2);
+  cursor: pointer;
+  width: 100%;
+  transition: transform 0.05s ease, filter 0.15s ease;
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+.button-danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.button-primary {
+  background: var(--accent);
+  color: #05243a;
+}
+
+.button-ghost {
+  background: transparent;
+  border: 1px solid var(--surface-2);
+  color: var(--muted);
+}
+
+.icon-button {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  padding: 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-button:active {
+  background: var(--surface);
+}
+
+/* ---------- Home ---------- */
+
+.home {
+  align-items: center;
+}
+
+.settings-button {
+  position: absolute;
+  top: calc(env(safe-area-inset-top) + 12px);
+  right: 16px;
+}
+
+.counter {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 6px;
+}
+
+.counter-number {
+  font-size: clamp(5rem, 34vw, 9rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.counter-label {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.counter-since {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ---------- Are you sure ---------- */
+
+.are-you-sure {
+  justify-content: center;
+  gap: 24px;
+}
+
+.photo-frame {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.prompt {
+  text-align: center;
+}
+
+.prompt h1 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+}
+
+.prompt p {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ---------- Settings ---------- */
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.settings-header .icon-button {
+  margin-left: -10px;
+}
+
+.settings-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.field {
+  margin-bottom: 28px;
+}
+
+.field > label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.field-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.field-row--spread {
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.field-row .button {
+  width: auto;
+  flex: 0 0 auto;
+  padding: 14px 18px;
+}
+
+.field input[type="text"] {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--surface-2);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.field input[type="text"]:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.photo-tile {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.photo-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.8);
+  color: #fff;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
