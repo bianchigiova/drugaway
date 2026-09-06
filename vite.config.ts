@@ -2,10 +2,11 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
-// Dev server runs at "/"; production build is served from
-// https://<user>.github.io/drugaway/.
-export default defineConfig(({ command }) => ({
-  base: command === "build" ? "/drugaway/" : "/",
+// Served from https://<user>.github.io/drugaway/ in production. Keep the same
+// base everywhere (dev + preview) so paths behave identically — `vite preview`
+// reports its command as "serve", so a command-based switch would break it.
+export default defineConfig({
+  base: "/drugaway/",
   plugins: [
     react(),
     VitePWA({
@@ -32,4 +33,4 @@ export default defineConfig(({ command }) => ({
       },
     }),
   ],
-}));
+});

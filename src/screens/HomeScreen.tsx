@@ -3,6 +3,7 @@ import { formatDate } from "../lib/days";
 
 interface Props {
   startISO: string;
+  showStats: boolean;
   onAboutToUse: () => void;
   onOpenStats: () => void;
   onOpenSettings: () => void;
@@ -10,6 +11,7 @@ interface Props {
 
 export default function HomeScreen({
   startISO,
+  showStats,
   onAboutToUse,
   onOpenStats,
   onOpenSettings,
@@ -19,13 +21,15 @@ export default function HomeScreen({
   return (
     <section className="screen home">
       <div className="home-actions">
-        <button
-          className="icon-button"
-          onClick={onOpenStats}
-          aria-label="Stats"
-        >
-          <StatsIcon />
-        </button>
+        {showStats && (
+          <button
+            className="icon-button"
+            onClick={onOpenStats}
+            aria-label="Stats"
+          >
+            <StatsIcon />
+          </button>
+        )}
         <button
           className="icon-button"
           onClick={onOpenSettings}

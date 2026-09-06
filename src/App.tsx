@@ -5,10 +5,12 @@ import SettingsScreen from "./screens/SettingsScreen";
 import StatsScreen from "./screens/StatsScreen";
 import {
   getPromiseName,
+  getShowStats,
   getSobrietyStartISO,
   recordChangedMind,
   recordRelapse,
   setPromiseName as persistPromiseName,
+  setShowStats as persistShowStats,
 } from "./lib/prefs";
 
 type Screen = "home" | "areYouSure" | "stats" | "settings";
@@ -17,10 +19,16 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>("home");
   const [promiseName, setPromiseName] = useState(getPromiseName);
   const [startISO, setStartISO] = useState(getSobrietyStartISO);
+  const [showStats, setShowStats] = useState(getShowStats);
 
   const savePromiseName = (name: string) => {
     persistPromiseName(name);
     setPromiseName(getPromiseName());
+  };
+
+  const toggleStats = (show: boolean) => {
+    persistShowStats(show);
+    setShowStats(show);
   };
 
   const confirmRelapse = () => {
@@ -38,6 +46,7 @@ export default function App() {
       {screen === "home" && (
         <HomeScreen
           startISO={startISO}
+          showStats={showStats}
           onAboutToUse={() => setScreen("areYouSure")}
           onOpenStats={() => setScreen("stats")}
           onOpenSettings={() => setScreen("settings")}
@@ -52,12 +61,16 @@ export default function App() {
         />
       )}
 
-      {screen === "stats" && <StatsScreen onBack={() => setScreen("home")} />}
+      {screen === "stats" && showStats && (
+        <StatsScreen onBack={() => setScreen("home")} />
+      )}
 
       {screen === "settings" && (
         <SettingsScreen
           promiseName={promiseName}
+          showStats={showStats}
           onSaveName={savePromiseName}
+          onToggleStats={toggleStats}
           onBack={() => setScreen("home")}
         />
       )}

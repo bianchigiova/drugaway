@@ -14,6 +14,7 @@ const START_KEY = "drugaway.sobrietyStartISO";
 const JOURNEY_KEY = "drugaway.journeyStartISO";
 const RELAPSES_KEY = "drugaway.relapses";
 const CHANGED_MIND_KEY = "drugaway.changedMindCount";
+const SHOW_STATS_KEY = "drugaway.showStats";
 
 const memory = new Map<string, string>();
 
@@ -42,6 +43,18 @@ export function getPromiseName(): string {
 
 export function setPromiseName(name: string): void {
   writeRaw(NAME_KEY, name.trim());
+}
+
+/**
+ * Whether the stats screen is available. Off by default — surfacing streak
+ * numbers unprompted risks turning relapses into a score.
+ */
+export function getShowStats(): boolean {
+  return readRaw(SHOW_STATS_KEY) === "1";
+}
+
+export function setShowStats(show: boolean): void {
+  writeRaw(SHOW_STATS_KEY, show ? "1" : "0");
 }
 
 /**

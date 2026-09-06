@@ -3,13 +3,17 @@ import { usePhotos } from "../hooks/usePhotos";
 
 interface Props {
   promiseName: string;
+  showStats: boolean;
   onSaveName: (name: string) => void;
+  onToggleStats: (show: boolean) => void;
   onBack: () => void;
 }
 
 export default function SettingsScreen({
   promiseName,
+  showStats,
   onSaveName,
+  onToggleStats,
   onBack,
 }: Props) {
   const [name, setName] = useState(promiseName);
@@ -100,6 +104,26 @@ export default function SettingsScreen({
             ))}
           </div>
         )}
+      </div>
+
+      <div className="field">
+        <label className="toggle" htmlFor="show-stats">
+          <span className="toggle-text">
+            <span className="toggle-title">Show stats</span>
+            <span className="toggle-hint">
+              A stats screen with your longest and average time before relapse.
+              Off by default so relapses don't become a score.
+            </span>
+          </span>
+          <input
+            id="show-stats"
+            type="checkbox"
+            role="switch"
+            className="switch"
+            checked={showStats}
+            onChange={(e) => onToggleStats(e.target.checked)}
+          />
+        </label>
       </div>
     </section>
   );
