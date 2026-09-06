@@ -46,13 +46,14 @@ export default function StatsScreen({ onBack }: Props) {
               ? "—"
               : dayLabel(stats.averageSpellDays)}
           </span>
-          <span className="stat-caption">
-            {stats.relapseCount === 0
-              ? "No relapses yet."
-              : `Based on ${stats.relapseCount} ${
-                  stats.relapseCount === 1 ? "relapse" : "relapses"
-                }.`}
-          </span>
+          {stats.relapseCount === 0 && (
+            <span className="stat-caption">No relapses yet.</span>
+          )}
+        </div>
+
+        <div className="stat-row">
+          <span className="stat-label">Number of relapses</span>
+          <span className="stat-value">{stats.relapseCount}</span>
         </div>
 
         <div className="stat-row">
