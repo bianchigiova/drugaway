@@ -104,10 +104,12 @@ body {
   align-items: center;
 }
 
-.settings-button {
+.home-actions {
   position: absolute;
   top: calc(env(safe-area-inset-top) + 12px);
-  right: 16px;
+  right: 10px;
+  display: flex;
+  gap: 2px;
 }
 
 .counter {
@@ -182,23 +184,60 @@ body {
   gap: 12px;
 }
 
-/* ---------- Settings ---------- */
+/* ---------- Screen header (settings, stats) ---------- */
 
-.settings-header {
+.screen-header {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 24px;
 }
 
-.settings-header .icon-button {
+.screen-header .icon-button {
   margin-left: -10px;
 }
 
-.settings-header h1 {
+.screen-header h1 {
   margin: 0;
   font-size: 1.5rem;
 }
+
+/* ---------- Stats ---------- */
+
+.stat-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--surface-2);
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-caption {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* ---------- Settings ---------- */
 
 .field {
   margin-bottom: 28px;

@@ -4,25 +4,36 @@ import { formatDate } from "../lib/days";
 interface Props {
   startISO: string;
   onAboutToUse: () => void;
+  onOpenStats: () => void;
   onOpenSettings: () => void;
 }
 
 export default function HomeScreen({
   startISO,
   onAboutToUse,
+  onOpenStats,
   onOpenSettings,
 }: Props) {
   const days = useDayCount(startISO);
 
   return (
     <section className="screen home">
-      <button
-        className="icon-button settings-button"
-        onClick={onOpenSettings}
-        aria-label="Settings"
-      >
-        <CogIcon />
-      </button>
+      <div className="home-actions">
+        <button
+          className="icon-button"
+          onClick={onOpenStats}
+          aria-label="Stats"
+        >
+          <StatsIcon />
+        </button>
+        <button
+          className="icon-button"
+          onClick={onOpenSettings}
+          aria-label="Settings"
+        >
+          <CogIcon />
+        </button>
+      </div>
 
       <div className="counter">
         <span className="counter-number">{days}</span>
@@ -36,6 +47,26 @@ export default function HomeScreen({
         I'm about to do drugs
       </button>
     </section>
+  );
+}
+
+function StatsIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="26"
+      height="26"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <line x1="4" y1="20" x2="4" y2="13" />
+      <line x1="12" y1="20" x2="12" y2="4" />
+      <line x1="20" y1="20" x2="20" y2="9" />
+    </svg>
   );
 }
 

@@ -32,7 +32,7 @@ export default function SettingsScreen({
 
   return (
     <section className="screen settings">
-      <header className="settings-header">
+      <header className="screen-header">
         <button
           className="icon-button"
           onClick={onBack}
