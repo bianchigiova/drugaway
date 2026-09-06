@@ -47,10 +47,10 @@ export default function StatsScreen({ onBack }: Props) {
               : dayLabel(stats.averageSpellDays)}
           </span>
           <span className="stat-caption">
-            {stats.completedSpells === 0
-              ? "No spells have ended yet."
-              : `Across ${stats.completedSpells} completed ${
-                  stats.completedSpells === 1 ? "spell" : "spells"
+            {stats.pastSpells === 0
+              ? "Nothing to average yet."
+              : `Across your ${stats.pastSpells} past ${
+                  stats.pastSpells === 1 ? "spell" : "spells"
                 }.`}
           </span>
         </div>

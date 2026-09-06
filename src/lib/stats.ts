@@ -5,13 +5,13 @@ const MS_PER_DAY = 24 * 60 * 60 * 1000;
 export interface Stats {
   /** ISO date the journey began. */
   journeyStartISO: string;
-  /** Number of sober spells that have ended in a relapse. */
-  completedSpells: number;
+  /** Number of sober spells that have already ended in a relapse. */
+  pastSpells: number;
   /** Longest spell in whole days, including the current ongoing one. */
   longestSpellDays: number;
   /** True when the current ongoing spell is the longest so far. */
   longestIsCurrent: boolean;
-  /** Mean length of completed spells, in days (1 dp). Null if none have ended. */
+  /** Mean length of past (ended) spells, in days (1 dp). Null if none have ended. */
   averageSpellDays: number | null;
   /** Times the user chose "I changed my mind". */
   changedMindCount: number;
@@ -48,7 +48,7 @@ export function computeStats(now: number = Date.now()): Stats {
 
   return {
     journeyStartISO,
-    completedSpells: completed.length,
+    pastSpells: completed.length,
     longestSpellDays: Math.floor(longestMs / MS_PER_DAY),
     longestIsCurrent: spells.length > 0 && currentMs === longestMs,
     averageSpellDays:
