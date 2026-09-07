@@ -7,7 +7,7 @@ export function daysSince(iso: string): number {
   return Math.max(0, Math.floor((Date.now() - start) / MS_PER_DAY));
 }
 
-/** Locale date string for the "Sober since ..." subtitle. */
+/** Locale date string for the "Since ..." subtitle. */
 export function formatDate(iso: string): string {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "";

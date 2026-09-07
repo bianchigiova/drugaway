@@ -44,7 +44,7 @@ export default function HomeScreen({
         <span className="counter-label">
           {days === 1 ? "day" : "days"} without drugs
         </span>
-        <span className="counter-since">Sober since {formatDate(startISO)}</span>
+        <span className="counter-since">Since {formatDate(startISO)}</span>
       </div>
 
       <button className="button button-danger" onClick={onAboutToUse}>

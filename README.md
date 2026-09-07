@@ -6,7 +6,7 @@ a reminder of a promise — between the impulse and the act.
 
 ## How it works
 
-- **Home** — large day counter (`days without drugs`) plus `Sober since <date>`.
+- **Home** — large day counter (`days without drugs`) plus `Since <date>`.
   The count is derived from a stored start timestamp, so it advances on its own each
   day (it also refreshes when you reopen or refocus the app). A cogwheel (top-right)
   opens Settings; the red button starts the "are you sure?" flow.
