@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { usePhotos, type Photo } from "../hooks/usePhotos";
+import { useEffect, useState, type CSSProperties } from "react";
+import { usePhotos } from "../hooks/usePhotos";
 
 interface Props {
   promiseName: string;
@@ -13,25 +13,42 @@ export default function AreYouSureScreen({
   onChangedMind,
 }: Props) {
   const { photos, loading } = usePhotos();
-  const [pick, setPick] = useState<Photo | null>(null);
-  const picked = useRef(false);
+  const [start, setStart] = useState<number | null>(null);
+  const [clicks, setClicks] = useState(0);
 
-  // Choose one random photo, once, when the list first becomes available.
+  // Pick the starting photo once, at random, when the list first loads.
   useEffect(() => {
-    if (loading || picked.current) return;
-    picked.current = true;
-    if (photos.length > 0) {
-      setPick(photos[Math.floor(Math.random() * photos.length)]);
-    }
-  }, [loading, photos]);
+    if (loading || start !== null) return;
+    setStart(photos.length > 0 ? Math.floor(Math.random() * photos.length) : 0);
+  }, [loading, photos, start]);
 
   const who = promiseName.trim() || "someone you love";
 
+  // "I'm doing it" is a deliberate hurdle: it takes one click per photo before
+  // it goes through, stepping to the next photo (with rollover) each time and
+  // filling like a progress bar.
+  const steps = Math.max(1, photos.length);
+  const current =
+    start !== null && photos.length > 0
+      ? photos[(start + clicks) % photos.length]
+      : null;
+  const progress = Math.min(1, clicks / steps);
+  const fillStyle = { "--progress": `${progress * 100}%` } as CSSProperties;
+
+  const onGoAheadClick = () => {
+    const next = clicks + 1;
+    if (next >= steps) {
+      onGoAhead();
+    } else {
+      setClicks(next);
+    }
+  };
+
   return (
     <section className="screen are-you-sure">
-      {pick && (
+      {current && (
         <div className="photo-frame">
-          <img src={pick.url} alt="" />
+          <img key={clicks} src={current.url} alt="" className="photo-fade" />
         </div>
       )}
 
@@ -41,8 +58,12 @@ export default function AreYouSureScreen({
       </div>
 
       <div className="actions">
-        <button className="button button-ghost" onClick={onGoAhead}>
-          I'm doing it
+        <button
+          className="button button-ghost button-progress"
+          style={fillStyle}
+          onClick={onGoAheadClick}
+        >
+          <span className="button-progress-label">I'm doing it</span>
         </button>
         <button className="button button-primary" onClick={onChangedMind}>
           I changed my mind

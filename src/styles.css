@@ -81,6 +81,27 @@ body {
   color: var(--muted);
 }
 
+/* "I'm doing it" doubles as a progress bar: --progress is the fill width. */
+.button-progress {
+  position: relative;
+  overflow: hidden;
+}
+
+.button-progress::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--progress, 0%);
+  background: var(--danger);
+  transition: width 0.3s ease;
+}
+
+.button-progress-label {
+  position: relative;
+}
+
 .icon-button {
   appearance: none;
   border: none;
@@ -161,6 +182,21 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.photo-fade {
+  animation: photo-fade-in 0.35s ease;
+}
+
+@keyframes photo-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .prompt {

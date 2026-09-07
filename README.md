@@ -12,7 +12,10 @@ a reminder of a promise — between the impulse and the act.
   opens Settings; the red button starts the "are you sure?" flow.
 - **Are you sure?** — shows a random photo from your library and
   `You made a promise to <name>.`
-  - `I'm doing it` → resets the counter to 0 and returns home.
+  - `I'm doing it` → a deliberate hurdle: it takes one click per photo before it
+    goes through, stepping to the next photo (with rollover) and filling like a
+    progress bar each time. On the final click it resets the counter to 0 and
+    returns home.
   - `I changed my mind` → just returns home.
 - **Settings** — set the name of the person you made the promise to, add or
   remove photos, and restart the journey (a confirm dialog first) — which clears
