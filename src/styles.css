@@ -119,6 +119,16 @@ body {
   background: var(--surface);
 }
 
+/* Icon button that reads as an action affordance (e.g. add photos). */
+.icon-button--framed {
+  border: 1px solid var(--surface-2);
+  padding: 8px;
+}
+
+.icon-button--framed:active {
+  background: var(--surface-2);
+}
+
 /* ---------- Home ---------- */
 
 .home {

@@ -70,10 +70,11 @@ export default function SettingsScreen({
         <div className="field-row field-row--spread">
           <label>Photos</label>
           <button
-            className="button button-ghost"
+            className="icon-button icon-button--framed"
             onClick={() => fileInput.current?.click()}
+            aria-label="Add photos"
           >
-            Add photos
+            <PlusIcon />
           </button>
         </div>
         <input
@@ -200,6 +201,25 @@ function BackIcon() {
     >
       <path d="M19 12H5" />
       <path d="M12 19l-7-7 7-7" />
+    </svg>
+  );
+}
+
+function PlusIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="22"
+      height="22"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M12 5v14" />
+      <path d="M5 12h14" />
     </svg>
   );
 }
