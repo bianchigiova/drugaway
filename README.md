@@ -14,8 +14,10 @@ a reminder of a promise — between the impulse and the act.
   `You made a promise to <name>.`
   - `I'm doing it` → resets the counter to 0 and returns home.
   - `I changed my mind` → just returns home.
-- **Settings** — set the name of the person you made the promise to, and add or
-  remove photos.
+- **Settings** — set the name of the person you made the promise to, add or
+  remove photos, and restart the journey (a confirm dialog first) — which clears
+  the history and stats and resets the counter to zero from today. Photos and the
+  promise name are kept.
 
 ## Data & privacy
 

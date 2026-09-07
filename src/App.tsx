@@ -9,6 +9,7 @@ import {
   getSobrietyStartISO,
   recordChangedMind,
   recordRelapse,
+  restartJourney,
   setPromiseName as persistPromiseName,
   setShowStats as persistShowStats,
 } from "./lib/prefs";
@@ -38,6 +39,11 @@ export default function App() {
 
   const changedMind = () => {
     recordChangedMind();
+    setScreen("home");
+  };
+
+  const restart = () => {
+    setStartISO(restartJourney());
     setScreen("home");
   };
 
@@ -71,6 +77,7 @@ export default function App() {
           showStats={showStats}
           onSaveName={savePromiseName}
           onToggleStats={toggleStats}
+          onRestart={restart}
           onBack={() => setScreen("home")}
         />
       )}

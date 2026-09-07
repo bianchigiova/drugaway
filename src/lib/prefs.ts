@@ -37,6 +37,15 @@ function writeRaw(key: string, value: string): void {
   }
 }
 
+function removeRaw(key: string): void {
+  memory.delete(key);
+  try {
+    window.localStorage.removeItem(key);
+  } catch {
+    /* ignore — memory fallback already cleared */
+  }
+}
+
 export function getPromiseName(): string {
   return readRaw(NAME_KEY) ?? "";
 }
@@ -121,4 +130,18 @@ export function recordChangedMind(): number {
   const next = getChangedMindCount() + 1;
   writeRaw(CHANGED_MIND_KEY, String(next));
   return next;
+}
+
+/**
+ * Wipe the whole journey history — relapses, "changed my mind" tally, and the
+ * pinned journey start — and begin again from now. The promise name and photos
+ * are left untouched. Returns the new sobriety start timestamp.
+ */
+export function restartJourney(): string {
+  const now = new Date().toISOString();
+  removeRaw(RELAPSES_KEY);
+  removeRaw(CHANGED_MIND_KEY);
+  writeRaw(START_KEY, now);
+  writeRaw(JOURNEY_KEY, now);
+  return now;
 }

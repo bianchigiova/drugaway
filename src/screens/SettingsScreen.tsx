@@ -6,6 +6,7 @@ interface Props {
   showStats: boolean;
   onSaveName: (name: string) => void;
   onToggleStats: (show: boolean) => void;
+  onRestart: () => void;
   onBack: () => void;
 }
 
@@ -14,10 +15,12 @@ export default function SettingsScreen({
   showStats,
   onSaveName,
   onToggleStats,
+  onRestart,
   onBack,
 }: Props) {
   const [name, setName] = useState(promiseName);
   const [savedFlash, setSavedFlash] = useState(false);
+  const [confirmingRestart, setConfirmingRestart] = useState(false);
   const { photos, loading, addFiles, remove } = usePhotos();
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -125,6 +128,59 @@ export default function SettingsScreen({
           />
         </label>
       </div>
+
+      <div className="field">
+        <div className="field-row field-row--spread">
+          <span className="toggle-text">
+            <span className="toggle-title">Restart the journey</span>
+            <span className="toggle-hint">
+              Clears your history and stats and sets the counter back to zero,
+              starting again from today. Photos and the promise name stay.
+            </span>
+          </span>
+          <button
+            className="button button-ghost"
+            onClick={() => setConfirmingRestart(true)}
+          >
+            Restart
+          </button>
+        </div>
+      </div>
+
+      {confirmingRestart && (
+        <div
+          className="modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="restart-title"
+          onClick={() => setConfirmingRestart(false)}
+        >
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <h2 id="restart-title">Restart the journey?</h2>
+            <p>
+              This permanently clears your history and stats and resets the
+              counter to zero. This can't be undone.
+            </p>
+            <div className="modal-actions">
+              <button
+                className="button button-ghost"
+                onClick={() => setConfirmingRestart(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="button button-danger"
+                onClick={() => {
+                  setConfirmingRestart(false);
+                  onRestart();
+                }}
+              >
+                Restart
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
