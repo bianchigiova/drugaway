@@ -362,20 +362,16 @@ body {
   justify-content: center;
 }
 
-/* ---------- Toggle ---------- */
-
-.toggle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  cursor: pointer;
-}
+/* ---------- Labelled control row (Show stats, Restart) ---------- */
 
 .toggle-text {
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+label.toggle-text {
+  cursor: pointer;
 }
 
 .toggle-title {

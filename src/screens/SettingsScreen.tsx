@@ -110,14 +110,14 @@ export default function SettingsScreen({
       </div>
 
       <div className="field">
-        <label className="toggle" htmlFor="show-stats">
-          <span className="toggle-text">
+        <div className="field-row field-row--spread">
+          <label className="toggle-text" htmlFor="show-stats">
             <span className="toggle-title">Show stats</span>
             <span className="toggle-hint">
               A stats screen with your longest and average time before relapse.
               Off by default so relapses don't become a score.
             </span>
-          </span>
+          </label>
           <input
             id="show-stats"
             type="checkbox"
@@ -126,7 +126,7 @@ export default function SettingsScreen({
             checked={showStats}
             onChange={(e) => onToggleStats(e.target.checked)}
           />
-        </label>
+        </div>
       </div>
 
       <div className="field">
