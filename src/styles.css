@@ -180,11 +180,41 @@ body {
 }
 
 .photo-frame {
-  width: 100%;
+  /* Cap by viewport height too, so the choice buttons stay on screen
+     without scrolling; `min-height: 0` lets it shrink further if needed. */
+  width: min(100%, 55vh);
+  align-self: center;
+  flex: 0 1 auto;
+  min-height: 0;
   aspect-ratio: 1 / 1;
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--surface);
+}
+
+/* Short viewports: shrink the photo and tighten spacing so the prompt
+   and both buttons always fit without scrolling. */
+@media (max-height: 680px) {
+  .are-you-sure {
+    gap: 14px;
+  }
+
+  .are-you-sure .button {
+    padding: 14px 20px;
+  }
+
+  .photo-frame {
+    width: min(100%, 42vh);
+  }
+
+  .prompt h1 {
+    margin-bottom: 4px;
+    font-size: 1.6rem;
+  }
+
+  .prompt p {
+    font-size: 1rem;
+  }
 }
 
 .photo-frame img {
