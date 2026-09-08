@@ -17,6 +17,7 @@ const JOURNEY_KEY = `${NS}.journeyStartISO`;
 const RELAPSES_KEY = `${NS}.relapses`;
 const CHANGED_MIND_KEY = `${NS}.changedMindCount`;
 const SHOW_STATS_KEY = `${NS}.showStats`;
+const DAY_COUNT_MAX_KEY = `${NS}.dayCountMax`;
 
 /**
  * One-time migration of persisted state from the app's former name ("drugaway").
@@ -102,6 +103,23 @@ export function setShowStats(show: boolean): void {
 }
 
 /**
+ * High-water mark for the day counter, in whole days. The count is derived from
+ * calendar days, which can slip backwards when the device moves into a timezone
+ * behind the previous one (flying west); clamping the display to this stored
+ * maximum keeps the number from ever decreasing during a single sober spell. It
+ * is cleared whenever the spell restarts — see `recordRelapse` / `restartJourney`.
+ */
+export function getDayCountMax(): number {
+  const raw = readRaw(DAY_COUNT_MAX_KEY);
+  const n = raw ? Number.parseInt(raw, 10) : 0;
+  return Number.isFinite(n) && n > 0 ? n : 0;
+}
+
+export function setDayCountMax(days: number): void {
+  writeRaw(DAY_COUNT_MAX_KEY, String(Math.max(0, Math.floor(days))));
+}
+
+/**
  * Returns the sobriety start timestamp, initialising it to "now" on first run so
  * the counter has a defined origin.
  */
@@ -157,6 +175,7 @@ export function recordRelapse(): string {
   const now = new Date().toISOString();
   writeRaw(RELAPSES_KEY, JSON.stringify([...getRelapseISOs(), now]));
   writeRaw(START_KEY, now);
+  removeRaw(DAY_COUNT_MAX_KEY);
   return now;
 }
 
@@ -176,6 +195,7 @@ export function restartJourney(): string {
   const now = new Date().toISOString();
   removeRaw(RELAPSES_KEY);
   removeRaw(CHANGED_MIND_KEY);
+  removeRaw(DAY_COUNT_MAX_KEY);
   writeRaw(START_KEY, now);
   writeRaw(JOURNEY_KEY, now);
   return now;
