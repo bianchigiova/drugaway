@@ -1,4 +1,6 @@
-# drugaway
+# Aurion
+
+_Aurion_ (αὔριον) is Ancient Greek for "tomorrow".
 
 A small personal PWA to support staying off drugs. It keeps a big, always-visible
 count of days clean, and puts a deliberate pause — a photo of someone you love and

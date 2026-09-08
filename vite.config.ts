@@ -2,7 +2,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
-// Served from https://<user>.github.io/drugaway/ in production. Keep the same
+// Served from https://<user>.github.io/drugaway/ in production — the base still
+// matches the (unchanged) repo name, not the app name "Aurion". Keep the same
 // base everywhere (dev + preview) so paths behave identically — `vite preview`
 // reports its command as "serve", so a command-based switch would break it.
 export default defineConfig({
@@ -14,8 +15,8 @@ export default defineConfig({
       includeAssets: ["icon-192.png", "icon-512.png"],
       // scope + start_url are derived from `base` by the plugin.
       manifest: {
-        name: "drugaway",
-        short_name: "drugaway",
+        name: "Aurion",
+        short_name: "Aurion",
         description: "Track days clean and pause before a relapse.",
         theme_color: "#0f172a",
         background_color: "#0f172a",

@@ -9,12 +9,47 @@
  * for the current session.
  */
 
-const NAME_KEY = "drugaway.promiseName";
-const START_KEY = "drugaway.sobrietyStartISO";
-const JOURNEY_KEY = "drugaway.journeyStartISO";
-const RELAPSES_KEY = "drugaway.relapses";
-const CHANGED_MIND_KEY = "drugaway.changedMindCount";
-const SHOW_STATS_KEY = "drugaway.showStats";
+const NS = "aurion";
+
+const NAME_KEY = `${NS}.promiseName`;
+const START_KEY = `${NS}.sobrietyStartISO`;
+const JOURNEY_KEY = `${NS}.journeyStartISO`;
+const RELAPSES_KEY = `${NS}.relapses`;
+const CHANGED_MIND_KEY = `${NS}.changedMindCount`;
+const SHOW_STATS_KEY = `${NS}.showStats`;
+
+/**
+ * One-time migration of persisted state from the app's former name ("drugaway").
+ * Copies each legacy key to its `aurion.` equivalent (unless already set) and
+ * drops the old one. Guarded like every other access — if storage throws, there
+ * is nothing to migrate and the app carries on.
+ */
+const LEGACY_NS = "drugaway";
+const KEY_SUFFIXES = [
+  "promiseName",
+  "sobrietyStartISO",
+  "journeyStartISO",
+  "relapses",
+  "changedMindCount",
+  "showStats",
+];
+
+function migrateLegacyKeys(): void {
+  for (const suffix of KEY_SUFFIXES) {
+    try {
+      const legacy = window.localStorage.getItem(`${LEGACY_NS}.${suffix}`);
+      if (legacy === null) continue;
+      if (window.localStorage.getItem(`${NS}.${suffix}`) === null) {
+        window.localStorage.setItem(`${NS}.${suffix}`, legacy);
+      }
+      window.localStorage.removeItem(`${LEGACY_NS}.${suffix}`);
+    } catch {
+      /* ignore — storage unavailable, nothing to migrate */
+    }
+  }
+}
+
+migrateLegacyKeys();
 
 const memory = new Map<string, string>();
 
